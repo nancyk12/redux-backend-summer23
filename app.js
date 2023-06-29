@@ -3,20 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('dotenv').config();
-var cors = require('cors');
-
-const mongoose = require('mongoose')
-
-// var mongooseOptions = { dbName: 'login-context'}
-// mongoose.connect(process.env.MONGODB_URI, mongooseOptions )
-
-mongoose.connect(process.env.MONGODB_URI, { dbName: 'login-context'} )
-        .then(() => console.log('MongoDB Connected!!!'))
-        .catch((error) => console.log(error))
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users/users');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -24,9 +13,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN
-}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
