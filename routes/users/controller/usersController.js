@@ -1,43 +1,28 @@
-// const login = (req, res) => {
-//     return {
-//         username: req.body.username
-//     }
-// }
-//
-// module.exports = {
-//     login
-// }
+const User = require('../model/User')
+const bcrypt = require('bcrypt')
+const { param } = require('../users')
 
-module.exports = {
-    login: async (req, res) => {
-        try {
-          console.log(req.body);
-            if (req.body.username !== 'Brad' && req.body.username !== 'Janet' ){
-                throw {
-                    status: 404,
-                    message: "User Not Found"
-                }
-            }
+const saltRounds = 10
 
-            if (req.body.password !== 'abc'){
-                throw {
-                    status: 403
-                }
-            }
-            res.status(200).json({
-                username: req.body.username,
-                password: req.body.password,
-                message: "Successful Login!!"
-            })  
-        } catch (error) {
-            res.status(error.status).json('Error!!')
-        }
-    },
-    register: async (req, res) => {
-       res.status(200).json({
-            message: `Successfully Registered ${req.body.username}`
-        }) 
-    }
-    
-
+const createUser = (params) => {
+    let newUser = new User({
+        email: params.email,
+        password: params.password,
+        firstname: params.firstname,
+        lastname: params.lastname
+    })
+    return newUser
 }
+
+const hashPassword = (password) => {
+    let hashedPassword = bcrypt.hash(password, saltRounds)
+    return hashedPassword
+
+    // or
+    // return bcrypt.hash(password, saltRounds)
+}
+
+const comparePasswords = (plaintextPassword, dbPassword) => bcrypt.compare(plaintextPassword, dbPassword)
+
+
+module.exports = { createUser, hashPassword, comparePasswords }
