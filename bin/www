@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('login-backend-summer23:server');
+var debug = require('debug')('redux-backend-summer23:server');
 var http = require('http');
 
 /**

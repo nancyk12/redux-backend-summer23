@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 require('dotenv').config()
+//const productRouter = require('./routes/products');
+//const bodyParser = require('body-parser');
+//usersRouter = require('./routes/users/users');
 
 const mongoose = require('mongoose')
 
@@ -17,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, { dbName: 'redux-backend'} )
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users/users');
+const blogRouter = require('./routes/blogs');
 
 var app = express();
 
@@ -35,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
+app.use("/api/blogs", blogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,6 +55,13 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.post('/api/blogs',(req, res, next) => {
+  const blog = req.body
+});
+app.get('/api/blogs/get-one-blog/:id',(req, res, next) => {
+  const blog = req.body
 });
 
 module.exports = app;
