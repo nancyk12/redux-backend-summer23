@@ -27,7 +27,7 @@ router.get("/all-blogs", getAllBlogs);
 router.post("/create-blog", createBlog);
 router.get("/get-one-blog/:id", getOneBlogById);
 // router.get('/:id', blogController.getBlogById);
-router.put("/update-by-id/:id", updateOneBlogById);
+router.put("/update-by-id/:idToUpdate", updateOneBlogById);
 router.delete("/delete-by-id/:idToDelete", deleteOneBlogById)
 
 module.exports = router;

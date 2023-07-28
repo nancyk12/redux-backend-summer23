@@ -41,10 +41,10 @@ async function getOneBlogById(req, res){
 //update
 async function updateOneBlogById(req, res) {
 	try {
-		const { id } = req.params;
+		const { idToUpdate } = req.params;
 
 		const updatedBlog = await Blog.findOneAndUpdate(
-			{ _id: id },
+			{ id:idToUpdate },
 			req.body
 		);
 		// const updatedBlog = Blog.updateOne({id: req.params.id}, req.body);
